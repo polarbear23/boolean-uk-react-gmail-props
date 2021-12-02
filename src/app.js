@@ -16,7 +16,7 @@ function App() {
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState('inbox')
   const [userInput, setUserInput] = useState("");
-
+  const [selectedEmailId, setSelectedEmail] = useState(0);
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
 
@@ -52,8 +52,7 @@ function App() {
     )
 
   }
-
-
+  console.log(selectedEmailId);
   return (
     <div className="app">
       <header className="header">
@@ -76,14 +75,21 @@ function App() {
         <ul className="inbox-list">
           <li
             className={`item ${currentTab === 'inbox' ? 'active' : ''}`}
-            onClick={() => setCurrentTab('inbox')}
+            onClick={() => {
+              setSelectedEmail(0);
+              setCurrentTab('inbox');
+            }}
           >
             <span className="label">Inbox</span>
             <span className="count">{unreadEmails.length}</span>
           </li>
           <li
             className={`item ${currentTab === 'starred' ? 'active' : ''}`}
-            onClick={() => setCurrentTab('starred')}
+            onClick={() => {
+              setSelectedEmail(0);
+              setCurrentTab('starred')
+            }
+            }
           >
             <span className="label">Starred</span>
             <span className="count">{starredEmails.length}</span>
@@ -100,8 +106,8 @@ function App() {
           </li>
         </ul>
       </nav>
-      <Emails filteredEmails={filteredEmails} toggleRead={toggleRead} toggleStar={toggleStar} />
-    </div>
+      <Emails selectedEmailId={selectedEmailId} setSelectedEmail={setSelectedEmail} filteredEmails={filteredEmails} toggleRead={toggleRead} toggleStar={toggleStar} />
+    </div >
   )
 }
 

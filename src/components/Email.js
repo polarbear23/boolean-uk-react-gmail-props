@@ -5,6 +5,7 @@ const Email = (props) => {
         <li
             key={props.index}
             className={`email ${props.email.read ? 'read' : 'unread'}`}
+            onClick={e => props.setSelectedEmail(props.email.id)}
         >
             <div className="select">
                 <input
